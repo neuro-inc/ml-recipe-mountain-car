@@ -1,0 +1,4 @@
+vim
+wget
+curl
+tree
