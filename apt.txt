@@ -1,4 +1,10 @@
+python-opengl
 vim
 wget
 curl
 tree
+libsm6
+htop
+xvfb
+xserver-xephyr
+vnc4server

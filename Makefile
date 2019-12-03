@@ -132,7 +132,8 @@ connect-training:  ### Connect to the remote shell running on the training job
 	$(NEURO) exec --no-tty --no-key-check $(TRAINING_JOB) bash
 
 .PHONY: jupyter
-jupyter: upload-code upload-notebooks ### Run a job with Jupyter Notebook and open UI in the default browser
+jupyter: CMD='xvfb-run -s "-screen 0 1400x900x24" jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir=$(PROJECT_PATH_ENV)'
+jupyter: upload-code ### Run a job with Jupyter Notebook and open UI in the default browser
 	$(NEURO) run \
 		--name $(JUPYTER_JOB) \
 		--preset $(TRAINING_MACHINE_TYPE) \
@@ -144,7 +145,8 @@ jupyter: upload-code upload-notebooks ### Run a job with Jupyter Notebook and op
 		--volume $(PROJECT_PATH_STORAGE)/$(NOTEBOOKS_DIR):$(PROJECT_PATH_ENV)/$(NOTEBOOKS_DIR):rw \
 		--volume $(PROJECT_PATH_STORAGE)/$(RESULTS_DIR):$(PROJECT_PATH_ENV)/$(RESULTS_DIR):rw \
 		$(CUSTOM_ENV_NAME) \
-		'jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir=$(PROJECT_PATH_ENV)'
+		$(CMD)
+
 
 .PHONY: kill-jupyter
 kill-jupyter:  ### Terminate the job with Jupyter Notebook

@@ -1,1 +1,5 @@
 tqdm==4.32.1
+gym==0.15.4
+pyvirtualdisplay
+gym[atari]
+wandb==0.8.17
