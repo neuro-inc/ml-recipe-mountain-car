@@ -1,4 +1,4 @@
-# mountain-car
+# ml-recipe-mountain-car
 
 # Description
 
@@ -11,12 +11,12 @@ This project is designed to run on [Neuro Platform](https://neu.ro), so you can 
 
 ## Directory structure
 
-| Local directory                      | Description       | Storage URI                                                                  | Environment mounting point |
-|:------------------------------------ |:----------------- |:---------------------------------------------------------------------------- |:-------------------------- | 
-| `data/`                              | Data              | `storage:mountain-car/data/`                              | `/mountain-car/data/` | 
-| `modules/` | Python modules    | `storage:mountain-car/modules/` | `/mountain-car/modules/` |
-| `notebooks/`                         | Jupyter notebooks | `storage:mountain-car/notebooks/`                         | `/mountain-car/notebooks/` |
-| No directory                         | Logs and results  | `storage:mountain-car/results/`                           | `/mountain-car/results/` |
+| Local directory                      | Description       | Storage URI                                    | Environment mounting point           |
+|:------------------------------------ |:----------------- |:-----------------------------------------------|:-------------------------------------| 
+| `data/`                              | Data              | `storage:ml-recipe-mountain-car/data/`         | `/ml-recipe-mountain-car/data/`      | 
+| `modules/`                           | Python modules    | `storage:ml-recipe-mountain-car/modules/`      | `/ml-recipe-mountain-car/modules/`   |
+| `notebooks/`                         | Jupyter notebooks | `storage:ml-recipe-mountain-car/notebooks/`    | `/ml-recipe-mountain-car/notebooks/` |
+| No directory                         | Logs and results  | `storage:ml-recipe-mountain-car/results/`      | `/ml-recipe-mountain-car/results/`   |
 
 ## Development
 
@@ -60,7 +60,7 @@ Through a simple file explorer interface, you can upload test images and perform
 ### Uploading via CLI
 
 On local machine run `make upload-data`. This command pushes local files stored in `./data`
-into `storage:mountain-car/data` mounted to your development environment's `/project/data`.
+into `storage:ml-recipe-mountain-car/data` mounted to your development environment's `/project/data`.
 
 ## Customization
 

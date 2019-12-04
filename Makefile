@@ -5,15 +5,15 @@ CODE_DIR?=modules
 NOTEBOOKS_DIR?=notebooks
 RESULTS_DIR?=results
 
-PROJECT_PATH_STORAGE?=storage:mountain-car
+PROJECT_PATH_STORAGE?=storage:ml-recipe-mountain-car
 
-PROJECT_PATH_ENV?=/mountain-car
+PROJECT_PATH_ENV?=/ml-recipe-mountain-car
 
 ##### JOB NAMES #####
 
-PROJECT_POSTFIX?=mountain-car
+PROJECT_POSTFIX?=ml-recipe-mountain-car
 
-TRAINING_JOB?=training-$(PROz§x§JECT_POSTFIX)
+TRAINING_JOB?=training-$(PROJECT_POSTFIX)
 JUPYTER_JOB?=jupyter-$(PROJECT_POSTFIX)
 TENSORBOARD_JOB?=tensorboard-$(PROJECT_POSTFIX)
 FILEBROWSER_JOB?=filebrowser-$(PROJECT_POSTFIX)
@@ -146,7 +146,6 @@ jupyter: upload-code ### Run a job with Jupyter Notebook and open UI in the defa
 		--volume $(PROJECT_PATH_STORAGE)/$(RESULTS_DIR):$(PROJECT_PATH_ENV)/$(RESULTS_DIR):rw \
 		$(CUSTOM_ENV_NAME) \
 		$(CMD)
-
 
 .PHONY: kill-jupyter
 kill-jupyter:  ### Terminate the job with Jupyter Notebook
