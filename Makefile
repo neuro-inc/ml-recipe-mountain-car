@@ -133,7 +133,7 @@ connect-training:  ### Connect to the remote shell running on the training job
 
 .PHONY: jupyter
 jupyter: CMD='xvfb-run -s "-screen 0 1400x900x24" jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir=$(PROJECT_PATH_ENV)'
-jupyter: upload-code ### Run a job with Jupyter Notebook and open UI in the default browser
+jupyter: upload-code upload-notebooks ### Run a job with Jupyter Notebook and open UI in the default browser
 	$(NEURO) run \
 		--name $(JUPYTER_JOB) \
 		--preset $(TRAINING_MACHINE_TYPE) \
