@@ -1,4 +1,40 @@
-# ml-recipe-mountain-car
+# Deep Q-Learning (DQN) 
+
+The first deep learning model to successfully learn control policies
+directly from high-dimensional sensory input using
+reinforcement learning was presented by [Mnih et. al.](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf)
+
+The model was a convolutional neural network, trained with a variant of Q-learning,
+whose input is raw pixels and whose output was a value function estimating future
+rewards.
+
+![car](https://user-images.githubusercontent.com/1387585/70574334-c090ab80-1b58-11ea-988d-f40afb6642a2.jpg)
+
+We will apply the approach discovered in that paper to one of the traditional
+[OpenAi gym](https://gym.openai.com/) environments [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/).
+
+Classic DQN presents a rather simplistic approach, but at the same time
+ an excellent starting point to dive into Deep Reinforcement Learning with 
+the help of this recipe.  
+
+# Quick Start
+
+##### 0. Sign up at [neu.ro](https://neu.ro)
+
+##### 1. Install CLI and log in
+```shell
+pip install -U neuromation
+neuro login
+```
+
+##### 2. Run the recipe
+
+```shell
+git clone git@github.com:neuromation/ml-recipe-hier-attention.git
+cd ml-recipe-mountain-car
+make setup
+make jupyter
+```
 
 # Description
 
