@@ -1,4 +1,36 @@
-# mountain-car
+# Deep Q-Learning (DQN) 
+
+The first deep learning model to successfully learn control policies
+directly from high-dimensional sensory input using
+reinforcement learning was presented by [Mnih et. al.](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf).
+
+The model was a convolutional neural network, trained with a variant of Q-learning, whose input is raw pixels and whose output was a value function estimating future rewards.
+
+![car](https://user-images.githubusercontent.com/1387585/70574334-c090ab80-1b58-11ea-988d-f40afb6642a2.jpg)
+
+We apply the approach discovered in that paper to one of the traditional
+[OpenAi gym](https://gym.openai.com/) environments - [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/).
+
+Classic DQN represents a rather simplistic approach, but at the same time, the recipe is an excellent starting point to dive into Deep Reinforcement Learning.  
+
+# Quick Start
+
+##### 0. Sign up at [neu.ro](https://neu.ro)
+
+##### 1. Install CLI and log in
+```shell
+pip install -U neuromation
+neuro login
+```
+
+##### 2. Run the recipe
+
+```shell
+git clone git@github.com:neuromation/ml-recipe-mountain-car.git
+cd ml-recipe-mountain-car
+make setup
+make jupyter
+```
 
 # Description
 
@@ -11,12 +43,12 @@ This project is designed to run on [Neuro Platform](https://neu.ro), so you can 
 
 ## Directory structure
 
-| Local directory                      | Description       | Storage URI                                                                  | Environment mounting point |
-|:------------------------------------ |:----------------- |:---------------------------------------------------------------------------- |:-------------------------- | 
-| `data/`                              | Data              | `storage:mountain-car/data/`                              | `/mountain-car/data/` | 
-| `modules/` | Python modules    | `storage:mountain-car/modules/` | `/mountain-car/modules/` |
-| `notebooks/`                         | Jupyter notebooks | `storage:mountain-car/notebooks/`                         | `/mountain-car/notebooks/` |
-| No directory                         | Logs and results  | `storage:mountain-car/results/`                           | `/mountain-car/results/` |
+| Local directory                      | Description       | Storage URI                                    | Environment mounting point           |
+|:------------------------------------ |:----------------- |:-----------------------------------------------|:-------------------------------------| 
+| `data/`                              | Data              | `storage:ml-recipe-mountain-car/data/`         | `/ml-recipe-mountain-car/data/`      | 
+| `modules/`                           | Python modules    | `storage:ml-recipe-mountain-car/modules/`      | `/ml-recipe-mountain-car/modules/`   |
+| `notebooks/`                         | Jupyter notebooks | `storage:ml-recipe-mountain-car/notebooks/`    | `/ml-recipe-mountain-car/notebooks/` |
+| No directory                         | Logs and results  | `storage:ml-recipe-mountain-car/results/`      | `/ml-recipe-mountain-car/results/`   |
 
 ## Development
 
@@ -60,7 +92,7 @@ Through a simple file explorer interface, you can upload test images and perform
 ### Uploading via CLI
 
 On local machine run `make upload-data`. This command pushes local files stored in `./data`
-into `storage:mountain-car/data` mounted to your development environment's `/project/data`.
+into `storage:ml-recipe-mountain-car/data` mounted to your development environment's `/project/data`.
 
 ## Customization
 

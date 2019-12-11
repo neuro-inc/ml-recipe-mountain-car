@@ -5,15 +5,15 @@ CODE_DIR?=modules
 NOTEBOOKS_DIR?=notebooks
 RESULTS_DIR?=results
 
-PROJECT_PATH_STORAGE?=storage:mountain-car
+PROJECT_PATH_STORAGE?=storage:ml-recipe-mountain-car
 
-PROJECT_PATH_ENV?=/mountain-car
+PROJECT_PATH_ENV?=/ml-recipe-mountain-car
 
 ##### JOB NAMES #####
 
-PROJECT_POSTFIX?=mountain-car
+PROJECT_POSTFIX?=ml-recipe-mountain-car
 
-TRAINING_JOB?=training-$(PROz§x§JECT_POSTFIX)
+TRAINING_JOB?=training-$(PROJECT_POSTFIX)
 JUPYTER_JOB?=jupyter-$(PROJECT_POSTFIX)
 TENSORBOARD_JOB?=tensorboard-$(PROJECT_POSTFIX)
 FILEBROWSER_JOB?=filebrowser-$(PROJECT_POSTFIX)
@@ -132,6 +132,7 @@ connect-training:  ### Connect to the remote shell running on the training job
 	$(NEURO) exec --no-tty --no-key-check $(TRAINING_JOB) bash
 
 .PHONY: jupyter
+jupyter: CMD='xvfb-run -s "-screen 0 1400x900x24" jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir=$(PROJECT_PATH_ENV)'
 jupyter: upload-code upload-notebooks ### Run a job with Jupyter Notebook and open UI in the default browser
 	$(NEURO) run \
 		--name $(JUPYTER_JOB) \
@@ -144,7 +145,7 @@ jupyter: upload-code upload-notebooks ### Run a job with Jupyter Notebook and op
 		--volume $(PROJECT_PATH_STORAGE)/$(NOTEBOOKS_DIR):$(PROJECT_PATH_ENV)/$(NOTEBOOKS_DIR):rw \
 		--volume $(PROJECT_PATH_STORAGE)/$(RESULTS_DIR):$(PROJECT_PATH_ENV)/$(RESULTS_DIR):rw \
 		$(CUSTOM_ENV_NAME) \
-		'jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir=$(PROJECT_PATH_ENV)'
+		$(CMD)
 
 .PHONY: kill-jupyter
 kill-jupyter:  ### Terminate the job with Jupyter Notebook
