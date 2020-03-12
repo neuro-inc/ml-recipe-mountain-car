@@ -13,6 +13,7 @@ PROJECT_PATH_ENV?=/ml-recipe-mountain-car
 
 PROJECT_POSTFIX?=ml-recipe-mountain-car
 
+SETUP_JOB?=setup-$(PROJECT_POSTFIX)
 TRAINING_JOB?=training-$(PROJECT_POSTFIX)
 JUPYTER_JOB?=jupyter-$(PROJECT_POSTFIX)
 TENSORBOARD_JOB?=tensorboard-$(PROJECT_POSTFIX)
@@ -56,7 +57,6 @@ help:
 ##### SETUP #####
 
 .PHONY: setup
-setup: SETUP_JOB?=setup-$(PROJECT_POSTFIX)
 setup: PROJECT_FILES=requirements.txt apt.txt setup.cfg
 setup: ### Setup remote environment
 	$(NEURO) kill $(SETUP_JOB) >/dev/null 2>&1 || :
@@ -90,7 +90,7 @@ __bake: upload-code upload-data upload-notebooks
 " >> /tmp/jupyter.sh
 	$(NEURO) cp /tmp/jupyter.sh $(PROJECT_PATH_STORAGE)/jupyter.sh
 	$(NEURO) exec --no-tty --no-key-check $(SETUP_JOB) \
-	    "bash -c 'mkdir /project-local; cp -R -T $(PROJECT_PATH_ENV) /project-local'"
+           "bash -c 'mkdir /project-local; cp -R -T $(PROJECT_PATH_ENV) /project-local'"
 	$(NEURO) exec --no-tty --no-key-check $(SETUP_JOB) \
            "jupyter trust /project-local/notebooks/mountain_car_dqn.ipynb"
 
