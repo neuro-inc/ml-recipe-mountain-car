@@ -29,6 +29,7 @@ jobs:
           command: |
             neuro config login-with-token $NEURO_TOKEN
             neuro config show
+            neuro --version
 
             make -f test.mk _generate_random_label_32 > /tmp/test-id.txt
             echo ""
