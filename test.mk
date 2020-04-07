@@ -1,7 +1,6 @@
-# NOTE: This makefile should be run from the project root '../'
 include Makefile
 
-_TAGS=--tag "test-id:$(shell cat /tmp/test-uuid.txt)"
+TAGS=--tag "test-id:$(shell cat /tmp/test-uuid.txt)"
 
 CMD_PREPARE=\
   export DEBIAN_FRONTEND=noninteractive && \
@@ -27,7 +26,7 @@ generate_random_uuid:
 
 .PHONY: test_jupyter
 test_jupyter: JUPYTER_CMD=bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
-test_jupyter: RUN_EXTRA=$(_TAGS)
+test_jupyter: RUN_EXTRA=$(TAGS)
 test_jupyter: jupyter
 
 .PHONY: test_jupyter_baked
@@ -35,6 +34,6 @@ test_jupyter_baked: PROJECT_PATH_ENV=/project-local
 test_jupyter_baked:
 	neuro run \
 		--preset $(TRAINING_MACHINE_TYPE) \
-		$(_TAGS) \
+		$(TAGS) \
 		$(CUSTOM_ENV_NAME) \
 		bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
