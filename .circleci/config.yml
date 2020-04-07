@@ -24,17 +24,30 @@ jobs:
           command: |
             pip install --user --upgrade pip neuromation
             pip install --user -r .circleci/requirements.txt
+            neuro --version
       - run:
           name: Build Image
           command: |
             neuro config login-with-token $NEURO_TOKEN
             neuro config show
-            neuro --version
+            neuro config docker
+            export IMAGE_NAME=neuromation/ml-recipe-mountain-car
+            export IMAGE_REF=$IMAGE_NAME:$CIRCLE_BUILD_NUM
+            export IMAGE_URI=image:$IMAGE_REF
+            export PROJECT_PATH_STORAGE=storage:build-$CIRCLE_BUILD_NUM
+            export CUSTOM_ENV_NAME=$IMAGE_URI
+            make setup __BAKE_SETUP=yes | tee
 
             make -f test.mk _generate_random_label > /tmp/test-id.txt
-            echo "Will run jobs with tag: --tag \"test-id:`cat /tmp/test-id.txt`\""
+            echo "Random label: `cat /tmp/test-id.txt`"
+            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=cpu-small | tee
+            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=gpu-small | tee
+            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=cpu-small | tee
+            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=gpu-small | tee
 
-            neuro run -s cpu-small --detach --tag "test-id:`cat /tmp/test-id.txt`" neuromation/base sleep 3h | tee
+            neuro pull $IMAGE_URI
+            echo "CIRCLE_TAG=$CIRCLE_TAG"
+            docker tag $IMAGE_REF $IMAGE_NAME:debug
       - run:
           name: Kill jobs left
           command: |
