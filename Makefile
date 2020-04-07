@@ -13,6 +13,8 @@ PROJECT_PATH_ENV?=/ml-recipe-mountain-car
 
 ##### JOB NAMES #####
 
+PROJECT_POSTFIX?=ml-recipe-mountain-car
+
 SETUP_JOB?=setup-$(PROJECT_POSTFIX)
 TRAINING_JOB?=training-$(PROJECT_POSTFIX)
 JUPYTER_JOB?=jupyter-$(PROJECT_POSTFIX)
