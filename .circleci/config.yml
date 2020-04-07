@@ -39,11 +39,17 @@ jobs:
             make setup __BAKE_SETUP=yes | tee
 
             make -f test.mk _generate_random_label > /tmp/test-id.txt
-            echo "Random label: `cat /tmp/test-id.txt`"
-            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=cpu-small | tee
-            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=gpu-small | tee
-            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=cpu-small | tee
-            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=gpu-small | tee
+            export TAG="test-id:$(cat /tmp/test-id.txt)"
+
+            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=cpu-small \
+                RUN_EXTRA="--tag=$TAG" | tee
+            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=gpu-small \
+                RUN_EXTRA="--tag=$TAG" | tee
+
+            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=cpu-small \
+                RUN_EXTRA="--tag=$TAG" | tee
+            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=gpu-small \
+                RUN_EXTRA="--tag=$TAG" | tee
 
             neuro pull $IMAGE_URI
             echo "CIRCLE_TAG=$CIRCLE_TAG"
