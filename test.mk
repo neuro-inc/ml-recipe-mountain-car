@@ -33,9 +33,9 @@ test_jupyter_baked: PROJECT_PATH_ENV=/project-local
 test_jupyter_baked: JOB_NAME=jupyter-baked-$(PROJECT_POSTFIX)
 test_jupyter_baked:
 	$(NEURO) run $(RUN_EXTRA) \
-	    --name $(JOB_NAME) \
+		--name $(JOB_NAME) \
 		--preset $(TRAINING_MACHINE_TYPE) \
 		$(CUSTOM_ENV_NAME) \
 		bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
 	# kill job to set its SUCCEEDED status in platform-api
-	$(NEURO) kill $(JOB_NAME)
+	$(NEURO) kill $(JOB_NAME) || :

@@ -26,7 +26,7 @@ jobs:
             pip install --user -r .circleci/requirements.txt
             neuro --version
       - run:
-          name: Build Image
+          name: Build and Test Image
           command: |
             neuro config login-with-token $NEURO_TOKEN
             neuro config show
