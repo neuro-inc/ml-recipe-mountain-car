@@ -1,7 +1,5 @@
 include Makefile
 
-TAGS=--tag "test-id:$(shell cat /tmp/test-uuid.txt)"
-
 CMD_PREPARE=\
   export DEBIAN_FRONTEND=noninteractive && \
   apt-get -qq update && \
@@ -20,20 +18,18 @@ CMD_NBCONVERT=\
   echo "Test succeeded: PROJECT_PATH_ENV=$(PROJECT_PATH_ENV) TRAINING_MACHINE_TYPE=$(TRAINING_MACHINE_TYPE)"
 
 
-.PHONY: generate_random_uuid
-generate_random_uuid:
-	uuidgen > /tmp/test-uuid.txt
+.PHONY: _generate_random_label_32
+_generate_random_label_32:
+	cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-32} | head -n 1
 
 .PHONY: test_jupyter
 test_jupyter: JUPYTER_CMD=bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
-test_jupyter: RUN_EXTRA=$(TAGS)
 test_jupyter: jupyter
 
 .PHONY: test_jupyter_baked
 test_jupyter_baked: PROJECT_PATH_ENV=/project-local
 test_jupyter_baked:
-	neuro run \
+	neuro run $(RUN_EXTRA) \
 		--preset $(TRAINING_MACHINE_TYPE) \
-		$(TAGS) \
 		$(CUSTOM_ENV_NAME) \
 		bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
