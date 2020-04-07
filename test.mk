@@ -18,9 +18,9 @@ CMD_NBCONVERT=\
   echo "Test succeeded: PROJECT_PATH_ENV=$(PROJECT_PATH_ENV) TRAINING_MACHINE_TYPE=$(TRAINING_MACHINE_TYPE)"
 
 
-.PHONY: _generate_random_label_32
-_generate_random_label_32:
-	@cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -n1 -c32
+.PHONY: _generate_random_label
+_generate_random_label:
+	@cat /dev/urandom | tr -dc 'a-z0-9' | head -n1 -c16
 
 .PHONY: test_jupyter
 test_jupyter: JUPYTER_CMD=bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
