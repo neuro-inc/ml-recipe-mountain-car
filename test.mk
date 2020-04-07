@@ -20,7 +20,7 @@ CMD_NBCONVERT=\
 
 .PHONY: _generate_random_label_32
 _generate_random_label_32:
-	cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -n1 -c32
+	@cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -n1 -c32 | tee /dev/stderr
 
 .PHONY: test_jupyter
 test_jupyter: JUPYTER_CMD=bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'

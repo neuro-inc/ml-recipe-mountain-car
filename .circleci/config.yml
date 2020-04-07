@@ -31,6 +31,7 @@ jobs:
             neuro config show
 
             make -f test.mk _generate_random_label_32 > /tmp/test-id.txt
+            echo ""
 
             neuro run -s cpu-small --tag "test-id:`cat /tmp/test-id.txt`" neuromation/base sleep 3h
       - run:
