@@ -10,7 +10,6 @@ CMD_NBCONVERT=\
   $(JUPYTER_SCREEN) \
   jupyter nbconvert \
   --execute \
-  --debug \
   --no-prompt \
   --no-input \
   --to=asciidoc \
