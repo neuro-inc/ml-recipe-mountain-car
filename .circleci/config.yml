@@ -48,12 +48,13 @@ jobs:
             neuro pull $IMAGE_URI
             echo "CIRCLE_TAG=$CIRCLE_TAG"
             docker tag $IMAGE_REF $IMAGE_NAME:debug
+
       - run:
-          - name: Kill jobs left
-            command: |
-              export JOBS_LEFT=$(neuro -q ps --tag "test-id:`cat /tmp/test-uuid.txt`")
-              [ ! "$JOBS_LEFT" ] || neuro kill $JOBS_LEFT
-            when: always
+          name: Kill jobs left
+          command: |
+            export JOBS_LEFT=$(neuro -q ps --tag "test-id:`cat /tmp/test-uuid.txt`")
+            [ ! "$JOBS_LEFT" ] || neuro kill $JOBS_LEFT
+          when: always
 
       - docker/check
       - docker/push:
