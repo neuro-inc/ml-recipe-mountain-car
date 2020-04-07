@@ -34,7 +34,7 @@ jobs:
             make -f test.mk _generate_random_label > /tmp/test-id.txt
             echo "Using test random label: `cat /tmp/test-id.txt`"
 
-            neuro run -s cpu-small --tag "test-id:`cat /tmp/test-id.txt`" neuromation/base sleep 3h
+            neuro run -s cpu-small --detach --tag "test-id:`cat /tmp/test-id.txt`" neuromation/base sleep 3h | tee
       - run:
           name: Kill jobs left
           command: |
