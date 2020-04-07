@@ -37,11 +37,11 @@ jobs:
             export CUSTOM_ENV_NAME=$IMAGE_URI
             make setup __BAKE_SETUP=yes | tee
 
-            make -f test.mk test_jupyter PRESET=cpu-small | tee
-            make -f test.mk test_jupyter PRESET=gpu-small | tee
+            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=cpu-small | tee
+            make -f test.mk test_jupyter TRAINING_MACHINE_TYPE=gpu-small | tee
 
-            make -f test.mk test_jupyter_baked PRESET=cpu-small | tee
-            make -f test.mk test_jupyter_baked PRESET=gpu-small | tee
+            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=cpu-small | tee
+            make -f test.mk test_jupyter_baked TRAINING_MACHINE_TYPE=gpu-small | tee
 
             neuro pull $IMAGE_URI
             echo "CIRCLE_TAG=$CIRCLE_TAG"
