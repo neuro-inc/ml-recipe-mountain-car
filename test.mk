@@ -25,11 +25,16 @@ _generate_random_label:
 .PHONY: test_jupyter
 test_jupyter: JUPYTER_CMD=bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
 test_jupyter: jupyter
+	# kill job to set its SUCCEEDED status in platform-api
+	make kill-jupyter
 
 .PHONY: test_jupyter_baked
 test_jupyter_baked: PROJECT_PATH_ENV=/project-local
-test_jupyter_baked:
-	neuro run $(RUN_EXTRA) \
+test_jupyter_baked: JOB_NAME=test-jupyter-baked-$(PROJECT_POSTFIX)
+	$(NEURO) run $(RUN_EXTRA) \
+	    --name $(JOB_NAME) \
 		--preset $(TRAINING_MACHINE_TYPE) \
 		$(CUSTOM_ENV_NAME) \
 		bash -c '$(CMD_PREPARE) && $(CMD_NBCONVERT)'
+	# kill job to set its SUCCEEDED status in platform-api
+	$(NEURO) kill $(JOB_NAME)
